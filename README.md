@@ -2,6 +2,6 @@
 
 Скомпанованы файлы для удобного пользования по папкам.
 ```
-# положить wget.exe в папку /Windows/System32 для запуска команды
+# положить wget.exe в папку /Windows/System32
 ```
 Откройте папку 'TensorFlow implementation' для прочтения README.md файла
