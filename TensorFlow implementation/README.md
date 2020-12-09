@@ -26,12 +26,13 @@
 - requirements.txt - необходимые библиотеки для запуска
 - train.py - скрипт для тренировки NN на кастомных данных
 
-Для того, чтобы можно было запустить, необходимо в командной строке папки прописать следующие команды:
+Для того, чтобы можно было запустить, необходимо `git clone` репозиторий и  в командной строке папки прописать следующие команды:
 ```
 pip install -r ./requirements.txt
 
 # weights of yolov4 darknet for TRANSFER Learning (needed on custom dataset)
-# положить wget.exe в папку /Windows/System32 для запуска команды
+# положить wget.exe в папку /Windows/System32 для запуска команды и скачать веса для YoloV4
+
 wget -P model_data https://github.com/AlexeyAB/darknet/releases/download/darknet_yolo_v3_optimal/yolov4.weights
 
 ```
