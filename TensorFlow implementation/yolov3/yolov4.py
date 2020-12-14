@@ -514,6 +514,13 @@ def bbox_ciou(boxes1, boxes2):
 
     return iou - ciou_term
 
+# def read_class_names(class_file_name):
+    # # loads class name from a file
+    # names = {}
+    # with open(class_file_name, 'r') as data:
+        # for ID, name in enumerate(data):
+            # names[ID] = name.strip('\n')
+    # return names
 
 def compute_loss(pred, conv, label, bboxes, i=0, CLASSES=YOLO_COCO_CLASSES):
     NUM_CLASS = len(read_class_names(CLASSES))
