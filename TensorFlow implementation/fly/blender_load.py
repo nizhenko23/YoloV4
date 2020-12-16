@@ -36,12 +36,13 @@ for angle_i, i in enumerate(positions):
     frame_number += 0.1
     
 
-file = open("D:\\!IAN_WORK\\NN_vision\\trajectory.txt", 'w')
+file = open("D:\\!IAN_WORK\\NN_vision\\trajectory_angles.txt", 'w')
 loc = ob1.location
+rot = ob1.rotation_euler
 
 for frames in range(scene.frame_start, scene.frame_end + 1):
     scene.frame_set(frames)
-    file.write(str(loc.x) + ', ' + str(loc.y) + ', ' + str(loc.z) + '\n')
+    file.write(str(loc.x) + ', ' + str(loc.y) + ', ' + str(loc.z) + ', ' + str(rot.x) + ', ' + str(rot.y) + ', ' + str(rot.z) + '\n')
 
 file.close()
 
@@ -57,10 +58,12 @@ coords_2d = [world_to_camera_view(scene, cam, coord) for coord in verts]
 
 rnd = lambda i: round(i)
 
-print('x,y')
+file = open("D:\\!IAN_WORK\\NN_vision\\coord.txt", 'w')
+
 for x, y, distance_to_lens in coords_2d:
-    print("{},{}".format(rnd(res_x*x), rnd(res_y*y)))
-    
+    file.write(str(rnd(res_x*x)) + ', ' + str(rnd(res_y*y)) + '\n')
+
+file.close()
 
 rnd3 = lambda i: round(i, 3)
 
