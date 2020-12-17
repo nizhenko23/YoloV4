@@ -53,26 +53,42 @@ res_y = render.resolution_y
 obj = bpy.data.objects['ASP2']
 cam = bpy.data.objects['Camera']
 
-verts = (vert.co for vert in obj.data.vertices)
-coords_2d = [world_to_camera_view(scene, cam, coord) for coord in verts]
+co = bpy.context.scene.cursor_location
 
-rnd = lambda i: round(i)
+co_2d = bpy_extras.object_utils.world_to_camera_view(scene, obj, co)
+print("2D Coords:", co_2d)
 
-file = open("D:\\!IAN_WORK\\NN_vision\\coord.txt", 'w')
 
-for x, y, distance_to_lens in coords_2d:
-    file.write(str(rnd(res_x*x)) + ', ' + str(rnd(res_y*y)) + '\n')
+render_scale = scene.render.resolution_percentage / 100
+render_size = (
+    int(scene.render.resolution_x * render_scale),
+    int(scene.render.resolution_y * render_scale),
+)
+print("Pixel Coords:", (
+      round(co_2d.x * render_size[0]),
+      round(co_2d.y * render_size[1]),
+))
 
-file.close()
+#verts = (vert.co for vert in obj.data.vertices)
+#coords_2d = [world_to_camera_view(scene, cam, coord) for coord in verts]
 
-rnd3 = lambda i: round(i, 3)
+#rnd = lambda i: round(i)
 
-limit_finder = lambda f: f(coords_2d, key=lambda i: i[2])[2]
-limits = limit_finder(min), limit_finder(max)
-limits = [rnd3(d) for d in limits]
+#file = open("D:\\!IAN_WORK\\NN_vision\\coord.txt", 'w')
 
-print('min, max\n{},{}'.format(*limits))
+#for x, y, distance_to_lens in coords_2d:
+#    file.write(str(rnd(res_x*x)) + ', ' + str(rnd(res_y*y)) + '\n')
 
-print('x,y,d')
-for x, y, d in coords_2d:
-    print("{},{},{}".format(rnd(res_x*x), rnd(res_y*y), rnd3(d)))
+#file.close()
+
+#rnd3 = lambda i: round(i, 3)
+
+#limit_finder = lambda f: f(coords_2d, key=lambda i: i[2])[2]
+#limits = limit_finder(min), limit_finder(max)
+#limits = [rnd3(d) for d in limits]
+
+#print('min, max\n{},{}'.format(*limits))
+
+#print('x,y,d')
+#for x, y, d in coords_2d:
+#    print("{},{},{}".format(rnd(res_x*x), rnd(res_y*y), rnd3(d)))
