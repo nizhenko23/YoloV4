@@ -1,0 +1,39 @@
+\newcommand{\названиеКомпании}
+{ПАО <<Компания <<Сухой>> <<ОКБ Сухого>>}
+\begin{titlepage}
+\thisfancypage{%
+\setlength{\fboxsep}{2pt}\fbox}{}
+\newgeometry{margin=1cm}
+Приложение к СЗ: \номерСлужебки  \hfill Гриф: \underline{~~~н/c~~~} \\
+\flushright{Экз. №: \underline{\hspace{2cm}}}
+\begin{center}
+\includegraphics[width=0.1\textwidth]{TemplateLib/logo} \\
+{\large \названиеКомпании}
+\vspace{4cm}\\
+{\textbf{\large Тема: \темаРаботы}} \\
+\vspace{0.5cm}
+{\Large \textbf{Техническая справка}}\\
+\vspace{0.5cm}
+
+по графику \идРаботы \\
+\vspace{0.5cm}
+
+{\Large <<\названиеРаботы >> }\\
+\vfill
+\makeatletter
+{
+\renewcommand{\arraystretch}{3}
+\begin{tabular}{L{.45\textwidth}cR{.45\textwidth}}%>{\raggedright\arrowbackslash}
+	Начальник бр. ЭММ НИЦ СКТ & & И.Д. Танненберг \\
+	\ДолжностьАвтораОтчета & & И.А. Ниженко \\
+	Главный конструктор СКТ & & А.В. Корнев \\ 
+\end{tabular} 
+}
+\makeatother
+\vfill
+
+Москва \the\year ~г.
+\end{center}
+
+\restoregeometry
+\end{titlepage}

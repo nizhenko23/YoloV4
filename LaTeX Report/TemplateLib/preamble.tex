@@ -1,0 +1,193 @@
+\usepackage{fontspec} %Включаем возможность настройки шрифтов xelatex
+%% Включаем русские буквы в формулах
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage[paper=A4,pagesize]{typearea}
+\usepackage{pdflscape}
+
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\usepackage{polyglossia}
+\setmainlanguage{russian}
+\setdefaultlanguage[spelling=modern]{russian}
+\setotherlanguage{english}
+\usepackage[russian]{hyperref}
+
+\setmainfont{Verdana}
+\setmathfont{Latin Modern Math}
+%\newfontfamily\cyrillicfont{Verdana}[Script=Cyrillic]
+\newfontfamily{\cyrillicfonttt}{Courier New}
+\setcounter{tocdepth}{3} % включение вложенности в оглавлении до subsubsection
+
+\DeclareSymbolFont{cyrletters}{\encodingdefault}{\familydefault}{m}{it}
+\newcommand{\makecyrmathletter}[1]{%
+	\begingroup\lccode`a=#1\lowercase{\endgroup
+		\Umathcode`a}="0 \csname symcyrletters\endcsname\space #1
+}
+\count255="409
+\loop\ifnum\count255<"44F
+\advance\count255 by 1
+\makecyrmathletter{\count255}
+\repeat
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{chngcntr}
+\usepackage{indentfirst}
+\def\labelitemi{--} % чтобы в перечислении были -- вместо точки
+\usepackage{fancyhdr} %for lfoot
+\usepackage{hyperref} %for hyperreference
+\usepackage{cprotect} %for hyperreference verbatim
+\usepackage{listings} %for inline verbatim
+
+\usepackage{spverbatim}
+%\usepackage[russian]{babel} % Включаем поддержку русского языка TODO: Babel для pdflatex, и luatex
+% Включаем основным шрифтом Verdana
+\usepackage{float} % for [H]
+\usepackage{fancybox}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{textcomp} % для значка градуса
+\usepackage{calc}
+%\usepackage{subfigure} % для вставки коллажей из рисунков
+\usepackage[subrefformat=parens,labelformat=parens]{subcaption} % со скобками вокруг ссылки на подрисунок
+\renewcommand\thesubfigure{\asbuk{subfigure}} %русские подписи в подрисунках
+\usepackage{caption} % Для изменения параметров подписи к рисункам и таблицам 
+\usepackage{threeparttable} % Для красиввых подписей к таблицам
+\captionsetup[figure]{name={Рисунок}, labelsep={endash}} % Установка стиля подписей к рисункам
+\captionsetup[table]{justification=raggedleft,singlelinecheck=off} %установка стиля подписи к таблицам
+\renewcommand{\labelenumii}{\arabic{enumi}.\arabic{enumii}.} %убираем сквозную нумерацию рисунков
+\usepackage{pythontex} % Поддержка python кода в документе
+\usepackage[svgnames,table]{xcolor}
+\usepackage[tableposition=above]{caption}
+\usepackage{tabulary}
+\usepackage{tabularx} %для таблиц переменной ширины
+\setlength{\tabcolsep}{2pt}
+\usepackage{pifont}
+\usepackage{chngpage}
+%%tttttttttttttttttttttt
+%Tables
+\usepackage{booktabs}
+\usepackage[table]{xcolor}
+\usepackage{widetable}
+\usepackage{longtable}
+%\usepackage{parskip}[indent=1.5cm] тут непонятная пока неразбериха твориться с стилем параграфа
+\usepackage{threeparttablex}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+\newcolumntype{Y}{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}X}
+\newcolumntype{Z}{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}X}
+
+\DeclareCaptionLabelSeparator{tire}{ - }
+\captionsetup[table]{labelsep=tire}
+%ttttttttttttttttttttttttt
+\usepackage[record,% using bib2gls
+abbreviations,
+]{glossaries-extra}
+
+\GlsXtrLoadResources[
+src={abbreviations},% entries in abbrvs.bib
+type=abbreviations, % put these entries in the 'abbreviations' list
+sort={custom}, % RU first,ru second
+sort-rule={< А < Б < В < Г < Д < Е < Ё < Ж < З < И < Й < К < Л < М < Н < О < П < Р < С < Т < Й < Ф < Х < Ц < Ч < Ш < Щ < Э < Ю < Я < A < B < C < D < E < F < G < H < I < J < K < L < M < N < O < P < Q < R < S < T < U < V < W < X < Y < Z}%
+]
+
+\usepackage[maxfloats=200]{morefloats} % для решения проблемы большого количества float
+\usepackage{placeins} % другой способ решения проблемы кучи float, вставка \FloatBarrier
+\input{templateLib/abbrevusualstyle}
+% для генерации галочки
+
+
+%% Вот этот оверкилл нужен был для генерации галки через бешенную библиотеку tikz
+\usepackage{tikz}
+%\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;
+\newlength{\leftspace}
+
+%---------------------------------------
+%Rotateable ans sizeable pages here
+\newlength{\pagewidthAfour} 
+\newlength{\pageheightAfour}
+\setlength{\pagewidthAfour}{210mm}
+\setlength{\pageheightAfour}{297mm}
+
+\newlength{\pagewidthAthree}
+\newlength{\pageheightAthree}
+\setlength{\pagewidthAthree}{297mm}
+\setlength{\pageheightAthree}{420mm}
+\newlength{\stockwidth}
+\newlength{\stockheight}
+
+\usepackage{geometry}%Установка стандартных размеров полей
+%\geometry{height=\pageheightAfour,width=\pageheightAfour,
+%	left=3cm,right=1cm,top=2cm,bottom=2cm,nohead,nofoot}
+
+\pdfpagewidth=\pagewidthAfour \pdfpageheight=\pageheightAfour % to enforce?
+\paperwidth=\pagewidthAfour \paperheight=\pageheightAfour     % for TikZ
+\stockwidth=\pagewidthAfour \stockheight=\pageheightAfour % hyperref (memoir)?!
+\usepackage{layouts}
+\newcommand{\generatePageLayouts}{%
+    % this command must be called after \begin{document}!
+    
+    % geometry needs layoutwidth - cause it ignores the above paper sizes!
+    % layoutwidth=148mm ok, layoutwidth=\paperwidth NOT ok
+    % paperwidth gets reset again internally in newgeometry: in log: *geometry* verbose mode: * layout(width,height): (614.295pt,794.96999pt)
+    % but by using \stockwidth, which here is just a custom length: * layout(width,height): (421.10078pt,597.50787pt)
+    
+    \newgeometry{layoutwidth=\pagewidthAfour,layoutheight=\pageheightAfour,left=3cm,right=1cm,top=2cm,bottom=2cm,nofoot,nohead}
+    \savegeometry{LayoutPageAfour}
+    
+    \newgeometry{layoutwidth=\pagewidthAthree,layoutheight=\pageheightAthree,left=3cm,right=1cm,top=2cm,bottom=2cm,footskip=0cm,headheight=0cm}
+  
+    \savegeometry{LayoutPageAthree}
+    
+    \newgeometry{layoutwidth=\pageheightAthree,layoutheight=\pagewidthAthree,left=3cm,right=1cm,top=2cm,bottom=2cm,footskip=0cm,headheight=0cm}
+    \savegeometry{LayoutPageAthreeLandscape}
+}
+
+
+
+
+\newcommand{\switchToLayoutPageAfour}{%
+    % doesn't include page sizes; so page size too:
+    \pdfpagewidth=\pagewidthAfour \pdfpageheight=\pageheightAfour % for PDF output
+    \paperwidth=\pagewidthAfour \paperheight=\pageheightAfour     % for TikZ
+    \stockwidth=\pagewidthAfour \stockheight=\pageheightAfour % hyperref (memoir)?!
+    \loadgeometry{LayoutPageAfour} % note; \loadgeometry may reset paperwidth/h!
+}
+
+\newcommand{\switchToLayoutPageAthree}{%
+    % doesn't include page sizes; so page size too:
+    \pdfpagewidth=\pagewidthAthree \pdfpageheight=\pageheightAthree % for PDF output
+    \paperwidth=\pagewidthAthree \paperheight=\pageheightAthree     % for TikZ
+    \stockwidth=\pagewidthAthree \stockheight=\pageheightAthree % hyperref (memoir)?!
+    \loadgeometry{LayoutPageAthree} % note; \loadgeometry may reset paperwidth/h!
+}
+\newcommand{\switchToLayoutPageAthreeLandscape}{%
+    % doesn't include page sizes; so page size too:
+    \pdfpagewidth=\pageheightAthree \pdfpageheight=\pagewidthAthree % for PDF output
+    \paperwidth=\pageheightAthree \paperheight=\pagewidthAthree    % for TikZ
+    \stockwidth=\pageheightAthree \stockheight=\pagewidthAthree % hyperref (memoir)?!
+    \loadgeometry{LayoutPageAthreeLandscape} % note; \loadgeometry may reset paperwidth/h!
+}
+
+%%Addressing overlapping table of contents section number and text problem
+\usepackage{tocloft}
+\advance\cftsecnumwidth 10pt\relax
+\advance\cftsubsecindent 2em\relax
+\advance\cftsubsecnumwidth 1em\relax
+%%
+
+\begin{pycode}
+import glob
+import os
+import re
+import sys
+sys.path.append('\\\\192.99.21.6\\VOLUME_8Tb\\EMM Team\\latex_helpers_source\\')
+from excel2latexviapython import Excel2latex
+import latex_helper_func
+from pdf_work import print_hh_formula
+insert_image=latex_helper_func.insert_image
+insert_image_sequence=latex_helper_func.insert_image_sequence
+initialize_helper_func=latex_helper_func.initialize_helper_func
+insert_folder_sequence = latex_helper_func.insert_folder_sequence
+tex_ref=latex_helper_func.tex_ref
+\end{pycode}
